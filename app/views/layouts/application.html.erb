@@ -2,7 +2,6 @@
 <html>
 	<head>
 		<title><%= title %></title>
-		
 		<%= csrf_meta_tag %>
 		<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
@@ -15,7 +14,7 @@
 	<body>
 		<div class="container">
 			<header>
-				<%= image_tag("loo.png", :alt => "Sample App", :class => "round")%>	
+				<%= image_tag("logo.png", :alt => "Sample App", :class => "round")%>	
 				<nav class="round">
 					<ul>
 						<li><%= link_to "Home", '#'%></li>
@@ -24,8 +23,9 @@
 					</ul>
 				</nav>
 			</header>
-			<section class = "round">	
-			<%= yield %>
+			<section class = "round">
+				<%= yield %>
+			</section>	
 		</div>
 	</body>
 </html>

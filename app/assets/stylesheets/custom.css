@@ -25,7 +25,7 @@ section h1 {
 	font-size: 200%;
 }
 
-/* Links */
+
 
 a {
 	color: #90c;
@@ -42,7 +42,7 @@ a.visited {
 	color: #069;
 }
 
-/* Navigation */
+
 
 nav {
 	float: right;
@@ -88,7 +88,7 @@ a.signup_button {
 	
 }
 
-/* Round corners*/
+
 
 .round {
 	-moz-border-radius:		10px;
@@ -96,7 +96,7 @@ a.signup_button {
 	border-radius:			10px;
 }
 
-/* Footer */
+
 
 footer {
 	text-align: center;
@@ -111,7 +111,7 @@ footer nav {
 }
 
 
-/* User show page */
+
 
 table.profile {
 	width: 100%;

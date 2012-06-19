@@ -29,7 +29,7 @@ describe "LayoutLinks" do
   end
   
   it "should have a signin page at '/signin'" do
-     get '/signup'
+     get '/signin'
      response.should have_selector('title', :content => "Sign in")
   
   end

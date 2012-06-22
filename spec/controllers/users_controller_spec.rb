@@ -331,7 +331,8 @@ describe UsersController do
       it "should not be able to destroy itself" do
         lambda do
           delete :destroy, :id => @admin
-        
-      
+        end.should_not change(User, :count)
+      end
+    end  
   end
 end

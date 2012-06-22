@@ -22,11 +22,11 @@ describe User do
   end
   
   it "should require an email address" do
-    no_email_user = User.new(@attr.merg(:email => ""))
+    no_email_user = User.new(@attr.merge(:email => ""))
     no_email_user.should_not be_valid
   end
   
-  it "should reject names that are too long"
+  it "should reject names that are too long" do
     long_name = "a" * 51
     long_name_user = User.new(@attr.merge(:name => long_name))
     long_name_user.should_not be_valid
@@ -93,7 +93,7 @@ describe User do
       User.new(hash).should_not be_valid
     end  
     
-     it "should reject long passwords" do
+    it "should reject long passwords" do
         long = "a" * 41
         hash = @attr.merge(:password => long, :password_confirmation => long)
         User.new(hash).should_not be_valid
@@ -117,6 +117,7 @@ describe User do
     it "should have a salt" do
       @user.should respond_to(:salt)
     end
+  end
     
   describe "has_password? method" do
 
@@ -140,7 +141,7 @@ describe User do
     end  
       
     it "should return nil on email/password mismatch" do
-      User.authenticate(@attr[:email, "wrongpass").should be_nil    
+      User.authenticate(@attr[:email], "wrongpass").should be_nil    
     end
     
     it "should return nil for an email address with no user" do
@@ -166,10 +167,36 @@ describe User do
       @user.should_not be_admin
     end
     
-    it "should be convertible to admin"
+    it "should be convertible to admin" do
       @user.toggle!(:admin)
       @user.should be_admin
+    end
+  end
   
+  describe "micropost associations" do
+    
+    before(:each) do
+      @user = User.create(@attr)
+      @mp1 = Factory(:micropost, :user => @user, :created_at => 1.day.ago)
+      @mp2 = Factory(:micropost, :user => @user, :created_at => 1.hour.ago)
+    end
+    
+    it "should have a microposts attribute" do
+      @user.should respond_to(:microposts) 
+    end
+    
+    it "should have the right microposts in the right order" do
+      @user.microposts.should == [@mp2, @mp1]
+    end
+    
+    it "should destroy associated microposts" do
+      @user.destroy
+      [@mp1, @mp2].each do |micropost|
+        lambda do
+          Micropost.find(micropost)
+        end.should raise_error(ActiveRecord::RecordNotFound )
+      end
+    end
   end
 end
 
@@ -185,5 +212,6 @@ end
 #  updated_at         :datetime        not null
 #  encrypted_password :string(255)
 #  salt               :string(255)
-#
+#  admin              :boolean         default(FALSE)
+
 
